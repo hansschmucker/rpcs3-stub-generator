@@ -9,6 +9,7 @@ Features:
 * Finds installed games by looking through the emulated HDD (SFO parsing included)
 * Creates correct icon for each game
 * Uses game title for filename
+* Finds additional binaries in collections
 * Includes GUI application for setup and filtering
 * Commandline application for automatic creation
 
