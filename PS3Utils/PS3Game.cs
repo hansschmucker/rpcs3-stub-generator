@@ -33,6 +33,34 @@ namespace PS3Utils
             return Sfo["TITLE_ID"].ToUpper();
         }
 
+        public List<string> GetAllAdditionalBinaries(string pathToScan=null,List<string> listToPopulate=null)
+        {
+            if (pathToScan == null)
+                pathToScan = GamePath;
+            if (listToPopulate==null)
+                listToPopulate = new List<string>();
+
+            var selfs=Directory.GetFiles(pathToScan, "*.self");
+            foreach (var i in selfs)
+                listToPopulate.Add(i);
+
+            foreach (var dir in Directory.GetDirectories(pathToScan))
+                GetAllAdditionalBinaries(dir, listToPopulate);
+
+            return listToPopulate;
+        }
+
+        public List<string> GetUsefulAdditionalBinaries()
+        {
+            var all=GetAllAdditionalBinaries();
+            var exclude = new Regex(@"(?:game|test|app|main|launcher|browser)", RegexOptions.IgnoreCase);
+            all = all.Where(a => !exclude.IsMatch(Path.GetFileName(a))).ToList();
+            if(all.Count<2)
+                return new List<string>();
+
+            return all;
+        }
+
         public Image GetIconImage()
         {
             return Image.FromFile(Path.Combine(GamePath, "ICON0.PNG"));
@@ -211,7 +239,8 @@ namespace PS3Utils
 
         public override string ToString()
         {
-            return GetName();
+            var additonal = GetUsefulAdditionalBinaries();
+            return GetId().Replace('\0',' ').Trim()+":"+GetName().Replace('\0', ' ').Trim()+ (additonal!=null && additonal.Count>0?" (+"+additonal.Count+" additional binaries)":"");
         }
     }
 }

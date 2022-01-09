@@ -41,6 +41,7 @@
             this.GenerateStubsButton = new System.Windows.Forms.Button();
             this.ListGamesDiscovered = new System.Windows.Forms.Label();
             this.NoGuiOption = new System.Windows.Forms.CheckBox();
+            this.CbAddAditionalElfStubs = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Rpcs3Searcher
@@ -51,7 +52,7 @@
             // 
             this.RPCS3PathText.Location = new System.Drawing.Point(176, 12);
             this.RPCS3PathText.Name = "RPCS3PathText";
-            this.RPCS3PathText.Size = new System.Drawing.Size(531, 26);
+            this.RPCS3PathText.Size = new System.Drawing.Size(1194, 26);
             this.RPCS3PathText.TabIndex = 0;
             this.RPCS3PathText.TextChanged += new System.EventHandler(this.RPCS3PathText_TextChanged);
             // 
@@ -59,7 +60,7 @@
             // 
             this.ShortcutsPathText.Location = new System.Drawing.Point(176, 56);
             this.ShortcutsPathText.Name = "ShortcutsPathText";
-            this.ShortcutsPathText.Size = new System.Drawing.Size(531, 26);
+            this.ShortcutsPathText.Size = new System.Drawing.Size(1194, 26);
             this.ShortcutsPathText.TabIndex = 1;
             this.ShortcutsPathText.TextChanged += new System.EventHandler(this.ShortcutsPathText_TextChanged);
             // 
@@ -88,12 +89,12 @@
             this.DiscoveredGamesList.Location = new System.Drawing.Point(16, 124);
             this.DiscoveredGamesList.Name = "DiscoveredGamesList";
             this.DiscoveredGamesList.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.DiscoveredGamesList.Size = new System.Drawing.Size(772, 264);
+            this.DiscoveredGamesList.Size = new System.Drawing.Size(1435, 264);
             this.DiscoveredGamesList.TabIndex = 4;
             // 
             // Rpcs3PathBrowseButton
             // 
-            this.Rpcs3PathBrowseButton.Location = new System.Drawing.Point(713, 12);
+            this.Rpcs3PathBrowseButton.Location = new System.Drawing.Point(1376, 12);
             this.Rpcs3PathBrowseButton.Name = "Rpcs3PathBrowseButton";
             this.Rpcs3PathBrowseButton.Size = new System.Drawing.Size(75, 38);
             this.Rpcs3PathBrowseButton.TabIndex = 5;
@@ -103,7 +104,7 @@
             // 
             // ShortcutsFolderBrowseButton
             // 
-            this.ShortcutsFolderBrowseButton.Location = new System.Drawing.Point(713, 56);
+            this.ShortcutsFolderBrowseButton.Location = new System.Drawing.Point(1376, 56);
             this.ShortcutsFolderBrowseButton.Name = "ShortcutsFolderBrowseButton";
             this.ShortcutsFolderBrowseButton.Size = new System.Drawing.Size(75, 38);
             this.ShortcutsFolderBrowseButton.TabIndex = 6;
@@ -113,7 +114,7 @@
             // 
             // GenerateStubsButton
             // 
-            this.GenerateStubsButton.Location = new System.Drawing.Point(561, 394);
+            this.GenerateStubsButton.Location = new System.Drawing.Point(1224, 405);
             this.GenerateStubsButton.Name = "GenerateStubsButton";
             this.GenerateStubsButton.Size = new System.Drawing.Size(227, 44);
             this.GenerateStubsButton.TabIndex = 7;
@@ -141,11 +142,22 @@
             this.NoGuiOption.UseVisualStyleBackColor = true;
             this.NoGuiOption.CheckedChanged += new System.EventHandler(this.NoGuiOption_CheckedChanged);
             // 
+            // CbAddAditionalElfStubs
+            // 
+            this.CbAddAditionalElfStubs.AutoSize = true;
+            this.CbAddAditionalElfStubs.Location = new System.Drawing.Point(16, 425);
+            this.CbAddAditionalElfStubs.Name = "CbAddAditionalElfStubs";
+            this.CbAddAditionalElfStubs.Size = new System.Drawing.Size(291, 24);
+            this.CbAddAditionalElfStubs.TabIndex = 10;
+            this.CbAddAditionalElfStubs.Text = "Add Shortcuts for additional binaries";
+            this.CbAddAditionalElfStubs.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1463, 460);
+            this.Controls.Add(this.CbAddAditionalElfStubs);
             this.Controls.Add(this.NoGuiOption);
             this.Controls.Add(this.ListGamesDiscovered);
             this.Controls.Add(this.GenerateStubsButton);
@@ -182,6 +194,7 @@
         private System.Windows.Forms.Button GenerateStubsButton;
         private System.Windows.Forms.Label ListGamesDiscovered;
         private System.Windows.Forms.CheckBox NoGuiOption;
+        private System.Windows.Forms.CheckBox CbAddAditionalElfStubs;
     }
 }
 

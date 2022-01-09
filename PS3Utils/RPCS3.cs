@@ -91,16 +91,31 @@ namespace PS3Utils
             return allGames;
         }
 
-        public ApplicationTarget GetApplicationTarget(PS3Game game,string stubDirectory,bool noGui=true)
+        public ApplicationTarget GetApplicationTarget(PS3Game game, string binPath, string stubFileSuffix, string stubDirectory, bool noGui = true)
         {
             return new ApplicationTarget()
             {
-                OutName = Path.Combine(stubDirectory, game.GetCleanName() + ".exe"),
+                OutName = Path.Combine(stubDirectory, game.GetCleanName()+ stubFileSuffix + ".exe"),
                 Binary = GetExeName(),
                 WorkingDirectory = AppPath,
                 AppIcon = game.GetFormattedIcon(),
-                Arguments = (noGui? "--no-gui ":"") +"\"" + game.EbootPath + "\""
+                Arguments = (noGui ? "--no-gui " : "") + "\"" + binPath + "\""
             };
+        }
+        public ApplicationTarget GetApplicationTarget(PS3Game game,string stubDirectory,bool noGui=true)
+        {
+            return GetApplicationTarget(game, game.EbootPath, "",stubDirectory, noGui);
+        }
+
+        public List<ApplicationTarget> GetUsefulApplicationTargets(PS3Game game, string stubDirectory, bool noGui = true)
+        {
+            var r=new List<ApplicationTarget>() { GetApplicationTarget(game, stubDirectory, noGui) };
+            var additionalSelfs = game.GetUsefulAdditionalBinaries();
+
+            if(additionalSelfs!=null) foreach(var target in additionalSelfs)
+                    r.Add(GetApplicationTarget(game,target," - "+Path.GetFileNameWithoutExtension(target),stubDirectory,noGui));
+
+            return r;
         }
     }
 }

@@ -123,8 +123,17 @@ namespace Rpcs3GenerateStubsGui
                 foreach (var item in items)
                 {
                     currentGame = item;
-                    var settings = Rpcs3.GetApplicationTarget(item, ShortcutsPathText.Text,NoGuiOption.Checked);
-                    PS3Utils.Compiler.CompileLauncherExe(settings);
+                    if (CbAddAditionalElfStubs.Checked)
+                    {
+                        var settings = Rpcs3.GetUsefulApplicationTargets(item, ShortcutsPathText.Text, NoGuiOption.Checked);
+                        foreach(var setting in settings)
+                            PS3Utils.Compiler.CompileLauncherExe(setting);
+                    }
+                    else
+                    {
+                        var settings = Rpcs3.GetApplicationTarget(item, ShortcutsPathText.Text, NoGuiOption.Checked);
+                        PS3Utils.Compiler.CompileLauncherExe(settings);
+                    }
                 }
             }catch(Exception ex)
             {
