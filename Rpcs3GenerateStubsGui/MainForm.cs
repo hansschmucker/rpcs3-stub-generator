@@ -34,12 +34,14 @@ namespace Rpcs3GenerateStubsGui
             string rpcs3Path = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Rpcs3GenerateStubs", "Rpcs3Path", null);
             string shortcutsFolder = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Rpcs3GenerateStubs", "ShortcutsPath", null);
             string hideGui = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Rpcs3GenerateStubs", "HideGui", null);
+            string createElfShortcuts = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Rpcs3GenerateStubs", "CreateElfShortcuts", null);
             if (!String.IsNullOrWhiteSpace(rpcs3Path) && File.Exists(rpcs3Path))
                 SaveRpcs3Path(rpcs3Path);
             if (!String.IsNullOrWhiteSpace(shortcutsFolder) && Directory.Exists(shortcutsFolder))
                 SaveShortcutsPath(shortcutsFolder);
             
             SaveHideGuiSetting(!String.IsNullOrWhiteSpace(hideGui) && hideGui=="TRUE");
+            SaveCreateElfShortcuts(!String.IsNullOrWhiteSpace(createElfShortcuts) && createElfShortcuts == "TRUE");
         }
 
         private void SaveRpcs3Path(string path)
@@ -48,6 +50,7 @@ namespace Rpcs3GenerateStubsGui
             {
                 Rpcs3 = new PS3Utils.RPCS3(Path.GetDirectoryName(path));
                 var games = Rpcs3.GetAllGames();
+                games.Sort((a,b)=>a.GetCleanName().CompareTo(b.GetCleanName()));
                 DiscoveredGamesList.Items.Clear();
                 foreach (var i in games)
                     DiscoveredGamesList.Items.Add(i);
@@ -68,6 +71,13 @@ namespace Rpcs3GenerateStubsGui
             Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Rpcs3GenerateStubs", "HideGui", enabled?"TRUE":"FALSE");
             NoGuiOption.Checked = enabled;
         }
+
+        private void SaveCreateElfShortcuts(bool enabled)
+        {
+            Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Rpcs3GenerateStubs", "CreateElfShortcuts", enabled ? "TRUE" : "FALSE");
+            NoGuiOption.Checked = enabled;
+        }
+        
         private void SaveShortcutsPath(string path)
         {
             Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Rpcs3GenerateStubs", "ShortcutsPath", path);
@@ -152,6 +162,11 @@ namespace Rpcs3GenerateStubsGui
         private void NoGuiOption_CheckedChanged(object sender, EventArgs e)
         {
             SaveHideGuiSetting(NoGuiOption.Checked);
+        }
+
+        private void CbAddAditionalElfStubs_CheckedChanged(object sender, EventArgs e)
+        {
+            SaveCreateElfShortcuts(CbAddAditionalElfStubs.Checked);
         }
     }
 }

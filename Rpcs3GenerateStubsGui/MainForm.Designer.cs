@@ -151,6 +151,7 @@
             this.CbAddAditionalElfStubs.TabIndex = 10;
             this.CbAddAditionalElfStubs.Text = "Add Shortcuts for additional binaries";
             this.CbAddAditionalElfStubs.UseVisualStyleBackColor = true;
+            this.CbAddAditionalElfStubs.CheckedChanged += new System.EventHandler(this.CbAddAditionalElfStubs_CheckedChanged);
             // 
             // MainForm
             // 

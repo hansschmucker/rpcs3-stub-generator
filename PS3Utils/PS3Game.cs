@@ -240,7 +240,7 @@ namespace PS3Utils
         public override string ToString()
         {
             var additonal = GetUsefulAdditionalBinaries();
-            return GetId().Replace('\0',' ').Trim()+":"+GetName().Replace('\0', ' ').Trim()+ (additonal!=null && additonal.Count>0?" (+"+additonal.Count+" additional binaries)":"");
+            return GetName().Replace('\0', ' ').Trim()+" ["+ GetId().Replace('\0', ' ').Trim()+"]"+(additonal!=null && additonal.Count>0?" (+"+additonal.Count+" additional binaries)":"");
         }
     }
 }
